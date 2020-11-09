@@ -15,10 +15,20 @@ public abstract class Vehicle {
 		this.brand = brand;
 		this.color = color;
 	}
+	
+	public String stringListWheels() {
+		String stringWheels = " ";
+		for (Wheel wheel : wheels) {
+			stringWheels += wheel.getBrand();
+			stringWheels += "/" + wheel.getDiameter() + " ";
+			
+		}
+		return stringWheels;
+	}
 
 	@Override
 	public String toString() {
-		return "Vehicle [plate=" + plate + ", brand=" + brand + ", color=" + color + "]";
+		return "Vehicle [plate=" + plate + ", brand=" + brand + ", color=" + color + ", wheels=" + stringListWheels() + "]";
 	}
 	
 	

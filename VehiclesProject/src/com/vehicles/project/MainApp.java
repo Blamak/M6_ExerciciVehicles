@@ -39,19 +39,16 @@ public class MainApp {
 		Wheel leftFront= new Wheel(null, 0);
 		Wheel rightFront = new Wheel(null, 0);
 		
-		   // -Right, brand + diameter:
-		System.out.println("Left front wheel brand?");
-		leftFront.setBrand(user.next());
-		System.out.println("Left front wheel diameter?");
+		   // -Right front wheel, brand + diameter:
+		System.out.println("Front wheels brand?");
+		rightFront.setBrand(user.next());
+		System.out.println("Front wheels diameter?");
 		rightFront.setDiameter(user.nextInt());
+		
+		// Front wheels must be identical (... method addTwoWheels in class Car):
 		leftFront = rightFront;
 		
-//		   // -Left, brand + diameter:
-//		System.out.println("Right front wheel brand?");
-//		leftFront.setBrand(user.next());
-//		System.out.println("Right front wheel diameter?");
-//		rightFront.setDiameter(user.nextInt());
-		
+				
 		// Add the 2 wheels to the List of front wheels.
 		frontWheels.add(rightFront);
 		frontWheels.add(leftFront);
@@ -60,18 +57,14 @@ public class MainApp {
 		Wheel leftBack = new Wheel(null, 0);
 		Wheel rightBack = new Wheel(null, 0);
 		
-		   // -Right, brand + diameter:
-		System.out.println("Right back wheel brand?");
+		   // -Right back wheel, brand + diameter:
+		System.out.println("Back wheels brand?");
 		rightBack.setBrand(user.next());
-		System.out.println("Right back wheel diameter?");
+		System.out.println("Back wheels diameter?");
 		rightBack.setDiameter(user.nextInt());
+		
+		// Back wheels must be identical.
 		leftBack = rightBack;
-
-//		   // -Left, brand + diameter:
-//		System.out.println("Left back wheel brand?");
-//		leftBack.setBrand(user.next());
-//		System.out.println("Left back wheel diameter?");
-//		leftBack.setDiameter(user.nextInt());
 		
 		// Add the 2 wheels to the List of back wheels
 		backWheels.add(rightBack);
