@@ -3,80 +3,97 @@ package com.vehicles.project;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class MainApp {
 
 	public static void main(String[] args) throws Exception {
-		
-		// Car attributes.
-		String plate;
-		String brand;
-		String color;
-		
-		// Prompt user for car's plate, brand and color and store them in variables.
+
+		Car userCar = new Car(null, null, null); // Instanciates an empty Car.
+
+		/*
+		 * Prompt user for car's plate, brand and color and store them in variables.
+		 */
+
 		Scanner user = new Scanner(System.in);
-		
-		System.out.println("Plate?");
-		plate = user.next();
-		System.out.println("Brand?");
-		brand = user.next();
-		System.out.println("Color?");
-		color = user.next();
-		
-		// Create a new car with the user's answers.
-		Car userCar = new Car(plate, brand, color);
-		
-		
-		/* 
-		 * Prompt user for brand and diameter of 4 wheels, 2 front and 2 back.    
-		*/
-		
+		System.out.println("Plate? (4 numbers and 2 or 3 letters)");
+
+		int stopper = 0; // Set to 1 stops the while loop.
+		while (stopper == 0) {
+			try {
+				userCar.plate = user.next().toUpperCase(); // Convert all characters of the answer to upper case to help
+															// match the pattern
+
+				// plate must be 4 numbers + 2 or 3 letters.
+				if (!Pattern.matches("^[0-9]{4}([A-Z]{2}|[A-Z]{3})$", userCar.plate)) {
+					throw new IllegalArgumentException(
+							"plate must be 4 numbers + 2 or 3 letters. Please enter plate number.");
+				}
+				System.out.println("Brand?");
+				userCar.brand = user.next();
+				System.out.println("Color?");
+				userCar.color = user.next();
+				stopper = 1; // Finish the loop.
+			} catch (IllegalArgumentException i) {
+				System.out.println(i);
+			}
+		}
+
+		/*
+		 * Prompt user for brand and diameter of 4 wheels, 2 front and 2 back.
+		 * First two empty lists are created, then each list is passed as parameter of the promptForWheels method.
+		 */
+
 		// Initializing 2 lists of wheels, front and back.
 		List<Wheel> frontWheels = new ArrayList<Wheel>();
 		List<Wheel> backWheels = new ArrayList<Wheel>();
+
+		System.out.println("Front wheels:");
+		promptForWheels(frontWheels);
+
+		System.out.println("Back wheels:");
+		promptForWheels(backWheels);
 		
-		// Front wheels instantiated:
-		Wheel leftFront= new Wheel(null, 0);
-		Wheel rightFront = new Wheel(null, 0);
-		
-		   // -Right front wheel, brand + diameter:
-		System.out.println("Front wheels brand?");
-		rightFront.setBrand(user.next());
-		System.out.println("Front wheels diameter?");
-		rightFront.setDiameter(user.nextInt());
-		
-		// Front wheels must be identical (... method addTwoWheels in class Car):
-		leftFront = rightFront;
-		
-				
-		// Add the 2 wheels to the List of front wheels.
-		frontWheels.add(rightFront);
-		frontWheels.add(leftFront);
-		
-		// Back wheels instantiated:
-		Wheel leftBack = new Wheel(null, 0);
-		Wheel rightBack = new Wheel(null, 0);
-		
-		   // -Right back wheel, brand + diameter:
-		System.out.println("Back wheels brand?");
-		rightBack.setBrand(user.next());
-		System.out.println("Back wheels diameter?");
-		rightBack.setDiameter(user.nextInt());
-		
-		// Back wheels must be identical.
-		leftBack = rightBack;
-		
-		// Add the 2 wheels to the List of back wheels
-		backWheels.add(rightBack);
-		backWheels.add(leftBack);
-		
-		
-		// Add all the 4 wheels to the user's car.
+
+		// Add wheels to user's car and print.
 		userCar.addWheels(frontWheels, backWheels);
-		
-		
 		System.out.println(userCar.toString());
-		
+	}
+
+	private static void promptForWheels(List<Wheel> wheelsList) {
+
+		// Wheels instantiated:
+		Wheel left = new Wheel(null, 0);
+		Wheel right = new Wheel(null, 0);
+
+		Scanner user = new Scanner(System.in);
+		System.out.println("Wheels diameter?");
+
+		int stopper = 0; // Set to 1 stops the while loop.
+		while (stopper == 0) {
+
+			try {
+				// -Right wheel, diameter + brand:
+				Double rightWheelDiameter = user.nextDouble();
+				if (rightWheelDiameter < 0.4 || rightWheelDiameter > 4.0) {
+					throw new IllegalArgumentException("Diameter permitted range between 0.4 and 4");
+				}
+				right.setDiameter(rightWheelDiameter);
+				System.out.println("Wheels brand?");
+				right.setBrand(user.next());
+
+				// Both wheels must be identical (... method addTwoWheels in class Car):
+				left = right;
+
+				// Add the 2 wheels to the List of front wheels.
+				wheelsList.add(right);
+				wheelsList.add(left);
+				stopper = 1; // Finish the loop.
+				
+			} catch (IllegalArgumentException i) {
+				System.out.println(i);
+			}
+		}
 	}
 
 }
