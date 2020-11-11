@@ -16,11 +16,16 @@ public abstract class Vehicle {
 		this.color = color;
 	}
 	
-	public String stringListWheels() {
+	public String stringOfWheels() { 
+		/* 
+		 * Method to create a string with all the wheels specs.
+		 */
+		
 		String stringWheels = " ";
+		// Loop over every wheel.
 		for (Wheel wheel : wheels) {
-			stringWheels += wheel.getBrand();
-			stringWheels += "/" + wheel.getDiameter() + " ";
+			stringWheels += wheel.getBrand(); // Adding brand to string
+			stringWheels += "/" + wheel.getDiameter() + " "; // Adding diameter
 			
 		}
 		return stringWheels;
@@ -28,7 +33,7 @@ public abstract class Vehicle {
 
 	@Override
 	public String toString() {
-		return "Vehicle [plate=" + plate + ", brand=" + brand + ", color=" + color + ", wheels=" + stringListWheels() + "]";
+		return "Vehicle [ plate=" + plate + ", brand=" + brand + ", color=" + color + ", wheels=" + stringOfWheels() + "]";
 	}
 	
 	
