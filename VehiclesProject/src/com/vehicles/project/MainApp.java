@@ -81,7 +81,7 @@ public class MainApp {
 				// -Right wheel, diameter + brand:
 				Double rightWheelDiameter = user.nextDouble();
 				if (rightWheelDiameter < 0.4 || rightWheelDiameter > 4.0) {
-					throw new IllegalArgumentException("Diameter permitted range between 0.4 and 4");
+					throw new IllegalArgumentException("Diameter permitted range between 0.4 and 4. Please enter again.");
 				}
 				right.setDiameter(rightWheelDiameter);
 				System.out.println("Wheels brand?");
