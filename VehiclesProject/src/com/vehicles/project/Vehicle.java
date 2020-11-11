@@ -28,7 +28,7 @@ public abstract class Vehicle {
 
 	@Override
 	public String toString() {
-		return "Vehicle [plate=" + plate + ", brand=" + brand + ", color=" + color + ", wheels=" + stringListWheels() + "]";
+		return "Vehicle [ plate=" + plate + ", brand=" + brand + ", color=" + color + ", wheels=" + stringListWheels() + "]";
 	}
 	
 	

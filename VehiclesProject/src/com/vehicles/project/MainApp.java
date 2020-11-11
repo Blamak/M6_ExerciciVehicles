@@ -61,6 +61,11 @@ public class MainApp {
 	}
 
 	private static void promptForWheels(List<Wheel> wheelsList) {
+		
+		/*
+		 * Method to prompt user for the wheels specs 
+		 * and add them to a list that will be a parameter of the method addWheels.
+		 */
 
 		// Wheels instantiated:
 		Wheel left = new Wheel(null, 0);
