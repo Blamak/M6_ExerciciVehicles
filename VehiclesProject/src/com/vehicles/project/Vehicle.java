@@ -17,6 +17,10 @@ public abstract class Vehicle {
 	}
 	
 	public String stringListWheels() {
+		/* 
+		 * Method to create and return a string with the specs of the wheels.
+		 */
+		
 		String stringWheels = " ";
 		for (Wheel wheel : wheels) {
 			stringWheels += wheel.getBrand();
@@ -31,5 +35,7 @@ public abstract class Vehicle {
 		return "Vehicle [ plate=" + plate + ", brand=" + brand + ", color=" + color + ", wheels=" + stringListWheels() + "]";
 	}
 	
-	
+
+	// Method turned into abstract to force all child classes to implement it.
+	public abstract void addWheels(List<Wheel> frontWheels, List<Wheel> backWheels) throws Exception;
 }
