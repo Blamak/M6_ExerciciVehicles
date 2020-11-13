@@ -1,6 +1,7 @@
 package com.vehicles.project;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -40,8 +41,9 @@ public class MainApp {
 		}
 
 		/*
-		 * Prompt user for brand and diameter of 4 wheels, 2 front and 2 back.
-		 * First two empty lists are created, then each list is passed as parameter of the promptForWheels method.
+		 * Prompt user for brand and diameter of 4 wheels, 2 front and 2 back. First two
+		 * empty lists are created, then each list is passed as parameter of the
+		 * promptForWheels method.
 		 */
 
 		// Initializing 2 lists of wheels, front and back.
@@ -53,7 +55,6 @@ public class MainApp {
 
 		System.out.println("Back wheels:");
 		promptForWheels(backWheels);
-		
 
 		// Add wheels to user's car and print.
 		userCar.addWheels(frontWheels, backWheels);
@@ -61,10 +62,10 @@ public class MainApp {
 	}
 
 	private static void promptForWheels(List<Wheel> wheelsList) {
-		
+
 		/*
-		 * Method to prompt user for the wheels specs 
-		 * and add them to a list that will be a parameter of the method addWheels.
+		 * Method to prompt user for the wheels specs and add them to a list that will
+		 * be a parameter of the method addWheels.
 		 */
 
 		// Wheels instantiated:
@@ -81,7 +82,8 @@ public class MainApp {
 				// -Right wheel, diameter + brand:
 				Double rightWheelDiameter = user.nextDouble();
 				if (rightWheelDiameter < 0.4 || rightWheelDiameter > 4.0) {
-					throw new IllegalArgumentException("Diameter permitted range between 0.4 and 4. Please enter again.");
+					throw new IllegalArgumentException(
+							"Diameter permitted range between 0.4 and 4. Please enter again.");
 				}
 				right.setDiameter(rightWheelDiameter);
 				System.out.println("Wheels brand?");
@@ -94,9 +96,12 @@ public class MainApp {
 				wheelsList.add(right);
 				wheelsList.add(left);
 				stopper = 1; // Finish the loop.
-				
+
 			} catch (IllegalArgumentException i) {
 				System.out.println(i);
+			} catch (InputMismatchException e) {
+				user.next(); // To avoid infinite loop.
+				System.out.println(e + ": Please enter a number between 0.4 and 4.");
 			}
 		}
 	}
