@@ -13,6 +13,14 @@ public class MainApp {
 		// Initializing 2 lists of wheels, front and back.
 		List<Wheel> frontWheels = new ArrayList<Wheel>();
 		List<Wheel> backWheels = new ArrayList<Wheel>();
+		
+		String typeOfVehicle = ""; // to store if the vehicle is a car;
+								   // variable created to avoid the use of instanceof -best practice-,
+								   // in method promptForWheels().
+		
+		// Avoid initializing inside a loop -best practice-.
+		Car userCar = new Car(null, null, null); // Instanciates an empty Car.
+		Bike userBike = new Bike(null, null, null); // Instanciates empty Bike.
 
 		Scanner user = new Scanner(System.in);
 		System.out.println("Are you creating a car or a bike?");
@@ -28,15 +36,15 @@ public class MainApp {
 
 				// Case car chosen:
 				if (userChoice.equals("car")) {
-					Car userCar = new Car(null, null, null); // Instanciates an empty Car.
+					typeOfVehicle = "car";
 
 					promptForVehicle(userCar); // Call function to prompt for and create the car.
 
 					// Prompt for and create the front and back wheels.
 					System.out.println("Front wheels:");
-					promptForWheels(frontWheels, userCar);
+					promptForWheels(frontWheels, typeOfVehicle);
 					System.out.println("Back wheels:");
-					promptForWheels(backWheels, userCar);
+					promptForWheels(backWheels, typeOfVehicle);
 
 					// Add wheels to the car and print all its specs.
 					userCar.addWheels(frontWheels, backWheels);
@@ -47,15 +55,15 @@ public class MainApp {
 
 				// Case bike chosen:
 				if (userChoice.equals("bike")) {
-					Bike userBike = new Bike(null, null, null); // Instanciates empty Bike.
+					// typeOfVehicle = "bike"; NO NEED
 
 					promptForVehicle(userBike); // Call to prompt and create the bike.
 
 					// Prompt for and create the front and back wheels.
 					System.out.println("Front wheel:");
-					promptForWheels(frontWheels, userBike);
+					promptForWheels(frontWheels, typeOfVehicle);
 					System.out.println("Back wheel:");
-					promptForWheels(backWheels, userBike);
+					promptForWheels(backWheels, typeOfVehicle);
 
 					// Add wheels to the bike and print all its specs.
 					userBike.addWheels(frontWheels, backWheels);
@@ -110,7 +118,7 @@ public class MainApp {
 
 	}
 
-	private static void promptForWheels(List<Wheel> wheelsList, Vehicle vehicle) {
+	private static void promptForWheels(List<Wheel> wheelsList, String typeOfVehicle) {
 
 		/*
 		 * Method to prompt user for the wheels' specs and add them to a list; this list
@@ -119,6 +127,11 @@ public class MainApp {
 		 */
 
 		Wheel oneWheel = new Wheel(null, 0); // new Wheel instantiated.
+		
+		// Variables initialized here to avoid doing it inside a loop -best pratice-.
+		Wheel clonedWheel = new Wheel(null, 0);
+		Double oneWheelDiameter; // variable to store the diameter of the first wheel entered;
+								 // if vehicle is a car, this variable will be cloned.
 
 		// Prompt for wheel specs.
 		Scanner user = new Scanner(System.in);
@@ -126,13 +139,17 @@ public class MainApp {
 
 		int stopper = 0; // Set to 1 stops the while loop.
 		while (stopper == 0) {
-			/* Triggers an InputMismatchException in case user enters a non numeric value for the diameter.
+			/* An InputMismatchException is triggered in case user enters a non numeric value for the diameter.
 			 * IllegalArgumentException if the entered diameter is out of range, 0.4-4.
 			 * Both exceptions resume the loop.
 			 */
 			try {
 				// Set diameter, if value entered is within the valid range, from 0.4 to 4.
-				Double oneWheelDiameter = user.nextDouble();
+				oneWheelDiameter = user.nextDouble();
+				
+				// BEST PRACTICE: avoid initializing variables inside a loop.
+//				Double rightWheelDiameter = user.nextDouble();
+				
 				if (oneWheelDiameter < 0.4 || oneWheelDiameter > 4.0) {
 					throw new IllegalArgumentException(
 							"Diameter permitted range between 0.4 and 4. Please enter again.");
@@ -147,16 +164,23 @@ public class MainApp {
 					wheelsList.add(oneWheel);
 
 					// If Car, clone the wheel and add it.
-					if (vehicle instanceof Car) {
-						Wheel clonedWheel = new Wheel(null, 0);
+					if (typeOfVehicle.equals("car")) {						
 						clonedWheel = oneWheel;
 						wheelsList.add(clonedWheel);
+						
+						// BEST PRATICE, not initialize here. 
+//						Wheel clonedWheel = new Wheel(null, 0);
 					}
-
+					
+					// BEST PRACTICE: avoid using instanceof
+//					if (vehicle instanceof Car) {
+//						Wheel clonedWheel = new Wheel(null, 0);
+//						clonedWheel = oneWheel;
+//						wheelsList.add(clonedWheel);
+//					}
+					
 					stopper = 1; // Finish the loop.
-
 				}
-
 			} catch (IllegalArgumentException i) {
 				System.out.println(i);
 			} catch (InputMismatchException e) {
