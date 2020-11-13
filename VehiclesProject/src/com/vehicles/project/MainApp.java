@@ -6,7 +6,15 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+/*
+ ****************************************************************
+ * BEST PRACTICES are implemented -at least tried to- in Fase-3 *
+ ****************************************************************
+ */
+
 public class MainApp {
+	
+	
 
 	public static void main(String[] args) throws Exception {
 
