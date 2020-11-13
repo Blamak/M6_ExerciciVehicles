@@ -55,6 +55,7 @@ public class MainApp {
 		/*
 		 * Method to prompt user for the wheels specs 
 		 * and add them to a list that will be a parameter of the method addWheels.
+		 * Exception handling added in Fase-2 and Fase-3.
 		 */
 		
 		// Wheels instantiated:
