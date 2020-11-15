@@ -76,6 +76,8 @@ public class MainApp {
 			}
 
 		}
+		
+		user.close(); // Close Scanner object avoiding resource leak.
 
 	}
 
