@@ -47,6 +47,8 @@ public class MainApp {
 		userCar.addWheels(frontWheels, backWheels);
 
 		System.out.println(userCar.toString());
+		
+		user.close(); // Close Scanner object avoiding resource leak.
 
 	}
 
