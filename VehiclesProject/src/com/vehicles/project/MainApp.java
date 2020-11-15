@@ -67,6 +67,8 @@ public class MainApp {
 		// Add wheels to user's car and print.
 		userCar.addWheels(frontWheels, backWheels);
 		System.out.println(userCar.toString());
+		
+		user.close(); // close resource
 	}
 
 	private static void promptForWheels(List<Wheel> wheelsList) {
