@@ -14,7 +14,7 @@ public class MainApp {
 		List<Wheel> frontWheels = new ArrayList<Wheel>();
 		List<Wheel> backWheels = new ArrayList<Wheel>();
 		
-		String typeOfVehicle = ""; // to store if the vehicle is a car;
+		String typeOfVehicle = ""; // To store if the vehicle is a car (... method below promptForWheels);
 								   // variable created to avoid the use of instanceof -best practice-,
 								   // in method promptForWheels().
 		
@@ -94,7 +94,7 @@ public class MainApp {
 		int stopper = 0; // Set to 1 stops the while loop.
 		while (stopper == 0) {
 			// Ask for and add vehicle's number plate. 
-			// Repeat question (IllegalArgumentException) if number plate is not valid.
+			// Repeat question if number plate is not valid (IllegalArgumentException) .
 			try {
 				vehicle.plate = user.next().toUpperCase(); // Convert all characters of the answer to upper case,
 														   // to help the user match the pattern above.
@@ -133,9 +133,9 @@ public class MainApp {
 		Wheel oneWheel = new Wheel(null, 0); // new Wheel instantiated.
 		
 		// Variables initialized here to avoid doing it inside a loop -best pratice-.
-		Wheel clonedWheel = new Wheel(null, 0);
 		Double oneWheelDiameter; // variable to store the diameter of the first wheel entered;
-								 // if vehicle is a car, this variable will be cloned.
+								 // if vehicle is a Car, this variable will be cloned.
+		Wheel clonedWheel = new Wheel(null, 0); // to clone the wheel in case of Car.
 
 		// Prompt for wheel specs.
 		Scanner user = new Scanner(System.in);
@@ -149,11 +149,7 @@ public class MainApp {
 			 */
 			try {
 				// Set diameter, if value entered is within the valid range, from 0.4 to 4.
-				oneWheelDiameter = user.nextDouble();
-				
-				// BEST PRACTICE: avoid initializing variables inside a loop.
-//				Double rightWheelDiameter = user.nextDouble();
-				
+				oneWheelDiameter = user.nextDouble();				
 				if (oneWheelDiameter < 0.4 || oneWheelDiameter > 4.0) {
 					throw new IllegalArgumentException(
 							"Diameter permitted range between 0.4 and 4. Please enter again.");
@@ -170,19 +166,9 @@ public class MainApp {
 					// If Car, clone the wheel and add it.
 					if (typeOfVehicle.equals("car")) {						
 						clonedWheel = oneWheel;
-						wheelsList.add(clonedWheel);
-						
-						// BEST PRATICE, not initialize here. 
-//						Wheel clonedWheel = new Wheel(null, 0);
+						wheelsList.add(clonedWheel);						
 					}
-					
-					// BEST PRACTICE: avoid using instanceof
-//					if (vehicle instanceof Car) {
-//						Wheel clonedWheel = new Wheel(null, 0);
-//						clonedWheel = oneWheel;
-//						wheelsList.add(clonedWheel);
-//					}
-					
+										
 					stopper = 1; // Finish the loop.
 				}
 			} catch (IllegalArgumentException i) {
