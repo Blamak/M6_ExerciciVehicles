@@ -117,6 +117,8 @@ public class MainApp {
 				System.out.println(i);
 			}
 		}
+		
+		user.close(); // Close Scanner object avoiding resource leak.
 
 	}
 
@@ -190,6 +192,8 @@ public class MainApp {
 				System.out.println(e + ": Please enter a number between 0.4 and 4.");
 			}
 		}
+		
+		user.close(); // Close Scanner object avoiding resource leak.
 	}
 
 }
