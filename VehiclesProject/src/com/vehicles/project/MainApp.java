@@ -38,13 +38,13 @@ public class MainApp {
 				if (userChoice.equals("car")) {
 					typeOfVehicle = "car";
 
-					promptForVehicle(userCar); // Call function to prompt for and create the car.
+					promptForVehicle(userCar, user); // Call function to prompt for and create the car.
 
 					// Prompt for and create the front and back wheels.
 					System.out.println("Front wheels:");
-					promptForWheels(frontWheels, typeOfVehicle);
+					promptForWheels(frontWheels, typeOfVehicle, user);
 					System.out.println("Back wheels:");
-					promptForWheels(backWheels, typeOfVehicle);
+					promptForWheels(backWheels, typeOfVehicle, user);
 
 					// Add wheels to the car and print all its specs.
 					userCar.addWheels(frontWheels, backWheels);
@@ -57,13 +57,13 @@ public class MainApp {
 				if (userChoice.equals("bike")) {
 					// typeOfVehicle = "bike"; NO NEED
 
-					promptForVehicle(userBike); // Call to prompt and create the bike.
+					promptForVehicle(userBike, user); // Call to prompt and create the bike.
 
 					// Prompt for and create the front and back wheels.
 					System.out.println("Front wheel:");
-					promptForWheels(frontWheels, typeOfVehicle);
+					promptForWheels(frontWheels, typeOfVehicle, user);
 					System.out.println("Back wheel:");
-					promptForWheels(backWheels, typeOfVehicle);
+					promptForWheels(backWheels, typeOfVehicle, user);
 
 					// Add wheels to the bike and print all its specs.
 					userBike.addWheels(frontWheels, backWheels);
@@ -83,12 +83,11 @@ public class MainApp {
 
 	// ----------------------- METHODS ------------------------------ //
 
-	private static void promptForVehicle(Vehicle vehicle) {
+	private static void promptForVehicle(Vehicle vehicle, Scanner user) {
 		/*
 		 * Prompt user for vehicle's plate, brand and color and store them in variables.
 		 */
 
-		Scanner user = new Scanner(System.in);
 		System.out.println("Plate? (4 numbers and 2 or 3 letters)");
 
 		int stopper = 0; // Set to 1 stops the while loop.
@@ -118,11 +117,10 @@ public class MainApp {
 			}
 		}
 		
-		user.close(); // Close Scanner object avoiding resource leak.
-
 	}
+	
 
-	private static void promptForWheels(List<Wheel> wheelsList, String typeOfVehicle) {
+	private static void promptForWheels(List<Wheel> wheelsList, String typeOfVehicle, Scanner user) {
 
 		/*
 		 * Method to prompt user for the wheels' specs and add them to a list; this list
@@ -137,10 +135,8 @@ public class MainApp {
 								 // if vehicle is a Car, this variable will be cloned.
 		Wheel clonedWheel = new Wheel(null, 0); // to clone the wheel in case of Car.
 
-		// Prompt for wheel specs.
-		Scanner user = new Scanner(System.in);
+		// Prompt for wheel specs, diameter and brand.
 		System.out.println("Diameter?");
-
 		int stopper = 0; // Set to 1 stops the while loop.
 		while (stopper == 0) {
 			/* An InputMismatchException is triggered in case user enters a non numeric value for the diameter.
@@ -177,9 +173,7 @@ public class MainApp {
 				user.next(); // To avoid infinite loop.
 				System.out.println(e + ": Please enter a number between 0.4 and 4.");
 			}
-		}
-		
-		user.close(); // Close Scanner object avoiding resource leak.
+		}		
 	}
 
 }
